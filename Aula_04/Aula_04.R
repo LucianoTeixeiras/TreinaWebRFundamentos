@@ -3,3 +3,5 @@
 nome <- "Luciano"
 nome
 
+#Para adicionar um objeto é necessário utilizar aspas
+
