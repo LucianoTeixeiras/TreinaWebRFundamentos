@@ -73,3 +73,37 @@ modeloaov <- aov(tamanho_cm~adubo_marca)
 summary(modeloaov)
 
 summary(tabela2)
+
+#Tapply calcula as médias para variável x categórito
+medias<-tapply(tamanho_cm, adubo_marca, mean)
+
+#Aula 07 -  Parte 02 - Gráficos ANOVA
+
+#Pacote para construção para o gráfico de ANOVA
+
+install.packages("gplots")
+library(gplots)
+
+barplot2(medias)
+
+barplot2(medias, ylab = 'Crescimento da Planta em (Cm)', xlab = 'Marca do Adubo')
+
+barplot2(medias, ylab = 'Crescimento da Planta em (Cm)', xlab = 'Marca do Adubo', names.arg = c("Marca A","Marca B"))
+
+barplot2(medias, 
+         ylab = 'Crescimento da Planta em (Cm)', 
+         xlab = 'Marca do Adubo', 
+         names.arg = c("Marca A","Marca B"),
+         col = c("green", "blue"))
+
+#Calclando o erro padrão
+erros<-tapply(tamanho_cm, adubo_marca, sd)/sqrt(tapply(tamanho_cm, adubo_marca, length))
+
+barplot2(medias, 
+         ylab = 'Crescimento da Planta em (Cm)', 
+         xlab = 'Marca do Adubo', 
+         names.arg = c("Marca A","Marca B"),
+         col = c("green", "blue"),
+         plot.ci = T,ci.u = medias+erros,ci.l = medias+erros,
+         ylim = c(0,10),
+         main = "Crescimento médio das planas")
